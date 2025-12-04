@@ -1,0 +1,119 @@
+{
+  "users": [
+    {
+      "name": { "first": "regular", "middle": "", "last": "user" },
+      "role": "user",
+      "phone": "050-0000000",
+      "email": "regularuser@gmail.com",
+      "password": "Aa1234!",
+      "city": "tel-aviv",
+      "armyUnit": "Golani",
+      "age": 30,
+      "releaseDate": "2010-05-01",
+      "image": { "url": "", "alt": "" },
+      "birthDate": "1990-01-01",
+      "skills": ["JavaScript", "React", "Node.js"],
+      "about": "מפתח/ת תוכנה עם ניסיון בפיתוח ווב Fullstack, אוהב/ת ללמוד טכנולוגיות חדשות.",
+       "experience": [
+        {
+          "title": "Frontend Developer",
+          "company": "TechCorp",
+          "from": "2018-01-01",
+          "to": "2020-06-30",
+          "description": "פיתוח ממשקי משתמש React, עבודה עם REST APIs"
+        }]
+    },
+
+    {
+      "name": { "first": "employer", "middle": "", "last": "user" },
+      "role": "employer",
+      "status": "approved",
+      "phone": "050-0000000",
+      "email": "employer@gmail.com",
+      "password": "Aa1234!",
+      "city": "tel-aviv",
+      "image": { "url": "", "alt": "" },
+      "birthDate": "1985-01-01"
+    },
+    
+    {
+      "name": { "first": "admin", "middle": "", "last": "user" },
+      "role": "admin",
+      "isAdmin": true,
+      "phone": "050-0000000",
+      "email": "admin@gmail.com",
+      "password": "Aa1234!",
+      "city": "tel-aviv",
+      "image": { "url": "", "alt": "" },
+      "birthDate": "1970-01-01"
+    }
+  ],
+  "jobs": [
+    {
+      "title": "Full Stack Developer",
+      "subtitle": "React & Node.js Developer",
+      "description": "דרוש/ה מפתח/ת Full Stack מנוסה לעבודה על מערכות Web מתקדמות.",
+      "company": "Tech Solutions Ltd",
+      "email": "jobs@techsolutions.com",
+      "phone": "0501234567",
+      "web": "https://www.techsolutions.com",
+      "image": {
+        "url": "https://cdn.pixabay.com/photo/2016/04/20/08/21/entrepreneur-1340649_960_720.jpg",
+        "alt": "Tech Solutions Logo"
+      },
+      "address": {
+        "city": "Tel Aviv",
+        "street": "Dizengoff",
+        "houseNumber": 10,
+        "zip": "67890"
+      },
+      "status": "active",
+      "likes": []
+    },
+    {
+      "title": "Frontend Developer",
+      "subtitle": "React Specialist",
+      "description": "דרוש/ה מפתח/ת Frontend עם ניסיון ב-React ו-Redux לעבודה בצוות חזק.",
+      "company": "Creative Web",
+      "email": "hr@creativeweb.com",
+      "phone": "0521112233",
+      "web": "https://www.creativeweb.com",
+      "image": {
+        "url": "https://cdn.pixabay.com/photo/2016/04/20/08/21/entrepreneur-1340649_960_720.jpg",
+        "alt": "Creative Web Logo"
+      },
+      "address": {
+        "country": "Israel",
+        "city": "Herzliya",
+        "street": "Hagalim",
+        "houseNumber": 15,
+        "zip": "4690200"
+      },
+      "status": "active",
+      "likes": []
+      },
+    {
+      "title": "Backend Engineer",
+      "subtitle": "Node.js & MongoDB Developer",
+      "description": "דרוש/ה מפתח/ת Backend עם ניסיון מעמיק ב-Node.js ו-MongoDB.",
+      "company": "DataCore Systems",
+      "email": "jobs@datacore.com",
+      "phone": "0549876543",
+      "web": "https://www.datacore.com",
+      "image": {
+        "url": "https://cdn.pixabay.com/photo/2016/04/20/08/21/entrepreneur-1340649_960_720.jpg",
+        "alt": "DataCore Logo"
+      },
+      "address": {
+        "country": "Israel",
+        "city": "Haifa",
+        "street": "Haneviim",
+        "houseNumber": 8,
+        "zip": "32100"
+      },
+      "status": "active",
+      "likes": []
+    }
+  ]
+}
+  
