@@ -3,14 +3,12 @@ import axios from "axios";
 import { Button, Card } from "flowbite-react";
 import { toast } from "react-toastify";
 import defaultProfile from "../../img/profile.jpg";
-import { useSelector } from "react-redux";
-import { TRootState } from "../../store/store";
+
 
 
 export default function EmployerRequests() {
   const [requests, setRequests] = useState<any[]>([]);
 
-    const user = useSelector((state: TRootState) => state.userSlice.user);
 
 
   const loadRequests = async () => {
@@ -81,8 +79,8 @@ export default function EmployerRequests() {
           <div className="flex flex-col items-center gap-4 md:flex-row md:items-start md:gap-8">
             <div>
               <img
-                src={user?.image.url || defaultProfile}
-                alt={user?.image.alt || "User Avatar"}
+                src={u?.image.url || defaultProfile}
+                alt={u?.image.alt || "User Avatar"}
                 className="mb-2 h-32 w-full rounded object-contain"
               />
             </div>

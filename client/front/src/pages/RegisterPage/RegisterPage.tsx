@@ -54,6 +54,7 @@ export default function SignupFormNew() {
       <Card className="w-full max-w-2xl bg-white/10 p-6 text-white/80 shadow-lg  backdrop-blur-sm">
         <h2 className="mb-6 text-center text-3xl font-bold text-white/80">
           צור חשבון חדש
+        <p className="text-center text-xs m-3">****שימו לב- יש למלא את כל השדות*</p>
         </h2>
         <form
           onSubmit={handleSubmit(onSubmit)}

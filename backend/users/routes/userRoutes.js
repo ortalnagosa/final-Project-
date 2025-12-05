@@ -5,11 +5,9 @@ const { handleError } = require("../../utils/errorHandler");
 const { auth } = require("../../auth/authService");
 const { requireRole } = require("../../middlewares/roles");
 const upload = require("../../middlewares/uploadResume");
-const path = require("path");
 const User = require("../models/mongodb/User");
 const { comparePassword, generateUserPassword } = require("../helpers/bcrypt");
 const { checkAdminOrSelf } = require("../helpers/authCheck");
-const fs = require("fs");
  
 
 router.post("/register", async (req, res) => {
@@ -33,7 +31,6 @@ router.post("/contact", (req, res) => {
       .json({ success: false, message: "All fields required" });
   }
 
-  // הדמיית שליחת מייל / שמירה
   console.log("New Contact Form:", { name, email, message,age });
 
   return res.json({ success: true, message: "We received your message!" });
@@ -95,7 +92,7 @@ router.get("/search", auth, async (req, res) => {
        }).select("-password");
        totalResults = users.length;
     } else {
-      // Regular user can only see themselves if it matches the query
+
       const user = await User.findOne({
         _id: req.user._id,
         $or: [
@@ -188,7 +185,7 @@ router.patch("/reject-employer/:userId", auth, requireRole(["admin"]), async (re
     const user = await User.findById(userId);
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    user.role = "user"; // או "regular"
+    user.role = "user"; 
     user.pendingEmployerRequest = false;
     await user.save();
 
@@ -215,9 +212,7 @@ router.post("/:id/upload-resume", auth, upload.single("resume"), async (req, res
 
     if (!req.file) throw { status: 400, message: "No file uploaded" };
 
-    // הנתיב שבו נשמר הקובץ
 const filePath = `uploads/resumes/${req.file.filename}`;
-    // עדכון המשתמש במסד
     const user = await updateUser(req.params.id, { resume: filePath });
 
     if (!user) return handleError(res, 404, "User not found");
@@ -268,12 +263,10 @@ router.put("/:id/change-password", auth, async (req, res) => {
     const user = await User.findById(req.params.id);
     if (!user) return handleError(res, 404, "User not found");
 
-    // בדיקת סיסמה קיימת
     if (!comparePassword(oldPassword, user.password)) {
       return handleError(res, 400, "Old password is incorrect");
     }
 
-    // עדכון סיסמה
     user.password = generateUserPassword(newPassword);
      user.failedLoginAttempts = 0;
      user.lockUntil = null;

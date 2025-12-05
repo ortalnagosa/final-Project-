@@ -30,7 +30,7 @@ const jobSchema = new mongoose.Schema(
       zip: { type: Number, required: false },
     },
     likes: [String],
-    salary: String,
+    salary: { type: String, default: "" },
 
     status: {
       type: String,

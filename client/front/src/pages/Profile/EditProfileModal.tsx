@@ -6,9 +6,10 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { EditProfileData } from "../../types/editProfileUser";
 import { updateUserSchema } from "../../validations/updateUserSchema";
-import { userActions } from "../../store/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import ChangePasswordModal from "./ChangePasswordModal";
+import { useSelector } from "react-redux";
 import { TRootState } from "../../store/store";
+
 
 interface Props {
   show: boolean;
@@ -36,14 +37,10 @@ const EditProfileModal = ({
     resolver: joiResolver(updateUserSchema),
     mode: "onChange",
   });
-
-  const [resume, setResume] = useState<File | null>(null);
+  const [showModal, setShowModal] = useState(false);
   const user = useSelector((state: TRootState) => state.userSlice.user);
-    const dispatch = useDispatch();
+  
 
-
-
-  // נועד למלא את הטופס כשפותחים את המודל
   useEffect(() => {
     if (initialData) {
       reset({
@@ -65,33 +62,7 @@ const EditProfileModal = ({
     }
   }, [initialData, reset]);
 
-  const handleResumeUpload = async () => {
-    if (!resume) return;
-    try {
-      const token = localStorage.getItem("token");
-      const uploadData = new FormData();
-      uploadData.append("resume", resume);
 
-      const res = await axios.post(
-        `http://localhost:8181/api/users/${user?._id}/upload-resume`,
-        uploadData,
-        {
-          headers: {
-            "x-auth-token": token || "",
-            "Content-Type": "multipart/form-data",
-          },
-        },
-      );
-
-      toast.success("קורות החיים הועלו בהצלחה!");
-      // עדכון Redux
-      dispatch(
-        userActions.setUser({ ...user, resume: res.data.data.resumePath }),
-      );
-    } catch (err: any) {
-      toast.error(err.response?.data?.message || "שגיאה בהעלאת קובץ");
-    }
-  };
 
   const onSubmit = async (formData: EditProfileData) => {
     try {
@@ -105,6 +76,7 @@ const EditProfileModal = ({
 
       
       onUserUpdated(formData);
+      toast.success("הפרופיל עודכן בהצלחה");
       onClose();
     } catch (err: any) {
       console.log(err);
@@ -119,7 +91,6 @@ const EditProfileModal = ({
 
       <Modal.Body>
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-          {/* שם פרטי */}
           <div>
             <Label>שם פרטי</Label>
             <TextInput {...register("name.first")} />
@@ -130,13 +101,11 @@ const EditProfileModal = ({
             )}
           </div>
 
-          {/* שם אמצעי */}
           <div>
             <Label>שם אמצעי</Label>
             <TextInput {...register("name.middle")} />
           </div>
 
-          {/* שם משפחה */}
           <div>
             <Label>שם משפחה</Label>
             <TextInput {...register("name.last")} />
@@ -145,7 +114,6 @@ const EditProfileModal = ({
             )}
           </div>
 
-          {/* טלפון */}
           <div>
             <Label>טלפון</Label>
             <TextInput {...register("phone")} />
@@ -187,7 +155,6 @@ const EditProfileModal = ({
             )}
           </div>
 
-          {/* עליי */}
           <div>
             <Label>קצת עליי</Label>
             <Textarea rows={4} {...register("about")} />
@@ -196,50 +163,16 @@ const EditProfileModal = ({
             )}
           </div>
 
-            {user?.role === "user" && (
-            <div className="mt-4 flex w-full max-w-md flex-col gap-2">
-            <Label htmlFor="resume">קורות חיים (PDF/DOC)</Label>
-            <input
-              type="file"
-              id="resume"
-              accept=".pdf,.doc,.docx"
-              className="rounded-md border p-2"
-              onChange={(e) => setResume(e.target.files?.[0] || null)}
+          <button type="button" onClick={() => setShowModal(true)} className="text-red-400">שינוי סיסמה</button>
+
+          {showModal && (
+            <ChangePasswordModal
+              userId={user?._id || ""}
+              onClose={() => setShowModal(false)}
             />
-            {user?.resume && (
-              <>
-                <p className="mt-1">
-                  קובץ קיים:
-                  <a
-                    href={`http://localhost:8181/${user.resume}`}
-                    target="_blank"
-                    className="text-blue-500 underline"
-                  >
-                    צפה
-                  </a>
-                </p>
-                <Button
-                  onClick={() =>
-                    window.open(
-                      `http://localhost:8181/api/users/${user._id}/resume/download`,
-                    )
-                  }
-                >
-                  הורד קובץ
-                </Button>
-              </>
-            )}
-            <Button
-              onClick={handleResumeUpload}
-              disabled={!resume}
-              className="mt-2"
-            >
-              העלה קורות חיים
-            </Button>
-          </div>
-)}
-          {/* כפתורים */}
-          <div className="flex gap-4 pt-4">
+          )}
+
+          <div className="flex gap-4 justify-end">
             <Button type="submit" disabled={!isDirty || !isValid}>
               שמור שינויים
             </Button>

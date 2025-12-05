@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import EditProfileModal from "../Profile/EditProfileModal";
 import { EditProfileData } from "../../types/editProfileUser";
 import { userActions } from "../../store/userSlice";
-import defaultProfile from "../../img/profile.jpg";
 
 
 export default function AdminUsersPage() {
@@ -19,7 +18,6 @@ export default function AdminUsersPage() {
         const dispatch = useDispatch();
 
 
-     const handleOpenModal = () => setShowEditModal(true);
     const handleCloseModal = () => setShowEditModal(false);
     
        const handleUserUpdated = (formData: EditProfileData) => {
@@ -52,7 +50,7 @@ export default function AdminUsersPage() {
       });
         console.log(res.data.data.users);
 
-      setUsers(res.data.data.users); // או res.data.users תלוי במבנה התשובה מהשרת
+      setUsers(res.data.data.users); 
     } catch (err) {
       console.error(err);
       toast.error("שגיאה בטעינת המשתמשים");
@@ -121,8 +119,8 @@ export default function AdminUsersPage() {
             <Card key={u._id} className="text-right">
               <div className="flex items-center gap-4">
                 <img
-                  src={user.image.url || defaultProfile}
-                  alt={user.image.alt || "User Avatar"}
+                  src={u.image.url}
+                  alt={u.image.alt}
                   className="mb-2 h-32 w-full rounded object-contain"
                 />
                 <h3 className="text-lg font-bold">
@@ -144,12 +142,7 @@ export default function AdminUsersPage() {
                     הפוך למעסיק
                   </Button>
                 )}
-                <Button
-                  onClick={() => handleOpenModal()}
-                  className="bg-sky-400 hover:bg-sky-300  dark:text-white"
-                >
-                  ערוך פרופיל
-                </Button>
+               
                 <Button color="red" size="sm" onClick={() => deleteUser(u._id)}>
                   מחק משתמש
                 </Button>

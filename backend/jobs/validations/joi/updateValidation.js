@@ -30,6 +30,8 @@ const jobUpdateValidation = (job) => {
         .allow(""),
       alt: Joi.string().min(2).max(256).allow(""),
     }),
+    salary: Joi.string().allow("").optional(),
+
     address: Joi.object({
       city: Joi.string().allow(""),
       street: Joi.string().allow(""),

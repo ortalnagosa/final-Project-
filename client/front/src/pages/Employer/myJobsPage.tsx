@@ -209,9 +209,9 @@ function MyJobsPage() {
                   </div>
                   <Link
                     to={`/jobs/${job._id}/participants`}
-                    className="cursor-pointer"
+                    className="cursor-pointer mt-4 inline-block text-brown-600 underline"
                   >
-                    👥 מועמדים
+                    👥מועמדים למשרה 
                   </Link>
                 </div>
               );

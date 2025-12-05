@@ -35,16 +35,7 @@ export default function Home() {
     }
   };
   const user = useSelector((state: TRootState) => state.userSlice.user);
-  const jobs = useSelector((state: TRootState) => state.jobsSlice.jobs);
 
-const userId = user?._id || "";
-const newJobs = jobs ? jobs.filter(
-  (job) => !job.appliedByUserIds.includes(userId),
-).length : 0;
-const lastAppliedJobObj = jobs
-  .filter((job) => job.appliedByUserIds.includes(userId))
-  .slice(-1)[0]; // לוקח את האחרונה
-  const lastAppliedJob = lastAppliedJobObj?._id || null;
   
   // המלצות / תגובות
   const [recommendations, setRecommendations] = useState([
@@ -83,7 +74,7 @@ const lastAppliedJobObj = jobs
       dir="rtl"
     >
       <div className="flex min-h-screen flex-col items-center bg-black/40 p-6">
-        {/* ברכת פתיחה */}
+
         <section className="mt-28 max-w-2xl rounded-3xl bg-white/80 p-10 shadow-xl backdrop-blur dark:bg-gray-300">
           <h1 className="mb-4 text-4xl font-black leading-tight text-sky-800">
             {user
@@ -92,7 +83,7 @@ const lastAppliedJobObj = jobs
           </h1>
           <p className="mb-6 text-lg text-sky-900">
             {user
-              ? "הנה כל מה שמחכה לך היום באתר — המשיכי במסע התעסוקתי שלך!"
+              ? "הנה כל מה שמחכה לך היום באתר — המשיכ/י במסע התעסוקתי שלך!"
               : "מצא/י הזדמנויות חדשות, בחר/י מסלול תעסוקתי שמתאים לך והתחל/י היום."}
           </p>
 
@@ -104,13 +95,13 @@ const lastAppliedJobObj = jobs
                   to="/login"
                   className="flex-1 rounded-xl bg-sky-600 py-3 text-center text-lg text-white shadow-lg transition hover:bg-sky-700"
                 >
-                  התחברי לחשבון
+                  התחבר/י לחשבון
                 </Link>
                 <Link
                   to="/jobs"
                   className="flex-1 rounded-xl bg-emerald-600 py-3 text-center text-lg text-white shadow-lg transition hover:bg-emerald-700"
                 >
-                  מצאי משרה
+                  מצא/י משרה
                 </Link>
               </>
             ) : (
@@ -119,24 +110,17 @@ const lastAppliedJobObj = jobs
                   to="/jobs"
                   className="flex-1 rounded-xl bg-emerald-600 py-3 text-center text-lg text-white shadow-lg transition hover:bg-emerald-700"
                 >
-                  למשרות הפתוחות ({newJobs})
+                  למשרות הפתוחות 
                 </Link>
 
-                {lastAppliedJob && (
-                  <Link
-                    to={`/jobs/${lastAppliedJob}`}
-                    className="flex-1 rounded-xl bg-yellow-500 py-3 text-center text-lg text-white shadow-lg transition hover:bg-yellow-600"
-                  >
-                    המשך משרה שהתחלת
-                  </Link>
-                )}
+           
 
                 {user.resume && (
                   <Link
                     to={`/profile/${user._id}/resume`}
                     className="flex-1 rounded-xl bg-sky-600 py-3 text-center text-lg text-white shadow-lg transition hover:bg-sky-700"
                   >
-                    צפה בקורות חיים
+                    צפה/י בקורות חיים
                   </Link>
                 )}
               </>

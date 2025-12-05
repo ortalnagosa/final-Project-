@@ -118,7 +118,7 @@ const JobCard = ({ job, userRole, userId, setJobs, onUnlike }: JobCardProps) => 
         <p>חברה: {job.company}</p>
         {job.web && (
           <p>
-            אתר:{" "}
+            אתר:
             <a href={job.web} target="_blank" className="text-blue-500">
               {job.web}
             </a>
@@ -130,6 +130,7 @@ const JobCard = ({ job, userRole, userId, setJobs, onUnlike }: JobCardProps) => 
         </p>
         <p>טלפון: {job.phone}</p>
         <p>דוא"ל: {job.email || "-"}</p>
+        <p className="font-bold">שכר:  {job.salary }</p>
       </div>
 
       <div className="mt-4 flex items-center justify-between">

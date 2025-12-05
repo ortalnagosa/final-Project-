@@ -4,6 +4,7 @@ import { TJob } from "../../types/job";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
+
 interface EditJobModalProps {
   job: TJob;
   onClose: () => void;
@@ -32,12 +33,13 @@ export default function EditJobModal({
       url: job.image?.url || "",
       alt: job.image?.alt || "",
     },
+    salary: job.salary || "",
   });
-
+  
   const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  
 
-  /** שינוי שדות רגילים */
   const handleChange = (e: any) => {
     const { name, value } = e.target;
 
@@ -84,6 +86,7 @@ export default function EditJobModal({
           url: form.image.url,
           alt: form.image.alt,
         },
+        salary: form.salary,
       };
       
       const token = localStorage.getItem("token");
@@ -96,7 +99,7 @@ export default function EditJobModal({
       );
 
       toast.success("המשרה עודכנה בהצלחה!");
-      onSave(data.job);      
+      onSave(data);      
       navigate("/jobs");
     } catch (error) {
       console.error(error);
@@ -110,11 +113,10 @@ export default function EditJobModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
       <form
         onSubmit={handleSubmit}
-        className="max-h-[100vh] w-full max-w-3xl overflow-y-auto rounded-xl bg-white/80 dark:bg-black/30 p-6 text-right shadow-xl dark:text-black"
+        className="max-h-[100vh] w-full max-w-3xl overflow-y-auto rounded-xl bg-white/80 p-6 text-right shadow-xl dark:bg-black/30 dark:text-black"
       >
         <h2 className="mb-4 text-2xl font-bold">עריכת משרה</h2>
 
-        {/* שדות רגילים */}
         <input
           name="title"
           value={form.title}
@@ -172,7 +174,6 @@ export default function EditJobModal({
           placeholder="אימייל"
         />
 
-        {/* כתובת */}
         <h3 className="mt-4 font-semibold">כתובת</h3>
 
         <input
@@ -199,7 +200,6 @@ export default function EditJobModal({
           placeholder="מספר בית"
         />
 
-        {/* תמונה */}
         <h3 className="mt-4 font-semibold">תמונה</h3>
 
         <input
@@ -217,8 +217,16 @@ export default function EditJobModal({
           className="mb-3 w-full rounded border p-2"
           placeholder="תיאור תמונה (alt)"
         />
+        <input
+          name="salary"
+          value={form.salary}
+          onChange={handleChange}
+          className="mb-3 w-full rounded border p-2"
+          placeholder="שכר"
+        />
 
-        {/* כפתורים */}
+       
+
         <div className="mt-4 flex justify-end gap-3">
           <button
             type="button"

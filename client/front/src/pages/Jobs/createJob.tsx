@@ -6,9 +6,11 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { TRootState } from "../../store/store";
 import { TcreateJob } from "../../types/createJobs";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateJobPage() {
   const user = useSelector((state: TRootState) => state.userSlice.user);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -36,6 +38,7 @@ export default function CreateJobPage() {
       );
 
       toast.success("המשרה פורסמה בהצלחה!");
+      navigate("/MyJobs");
       reset();
     } catch (err: any) {
       toast.error(err.response?.data?.message || "שגיאה בפרסום המשרה");

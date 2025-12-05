@@ -6,4 +6,5 @@ export type EditProfileData = {
   skills?: string[];
   image?: { url: string; alt: string };
   age?: number;
+  
 };
